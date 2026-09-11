@@ -1,0 +1,8 @@
+# Rohdaten sind zu groß für GitHub
+data/*.parquet
+data/*.csv
+
+# Jupyter / Python
+.ipynb_checkpoints/
+__pycache__/
+*.code-workspace
