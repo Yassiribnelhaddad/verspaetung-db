@@ -26,14 +26,8 @@ Der Fernverkehr (ICE, IC ...). Nur 52,9 % der Fernzüge waren pünktlich. Die S-
 
 Am Abend. Um 20 Uhr waren 36,7 % der Züge verspätet. Am frühen Morgen (4 bis 6 Uhr) waren weniger als 15 % verspätet.
 
-## Was ich gelernt habe
 
-- SQL mit DuckDB: `GROUP BY`, `CASE WHEN`, `VIEW`, `PIVOT`
-- Datenqualität prüfen (ausgefallene Züge, zu frühe Züge)
-- Diagramme mit matplotlib
-- Git
-
-## Werkzeuge
+## Technologies
 
 Python, DuckDB (SQL), Jupyter Notebook, matplotlib, Git
 
