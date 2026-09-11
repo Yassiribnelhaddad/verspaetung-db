@@ -1,34 +1,56 @@
-# Analyse der Verspätungen der Deutschen Bahn
+# Pünktlichkeit am Frankfurter Hauptbahnhof
 
-Ein kleines Projekt zur Daten- und Prozessanalyse: Wie pünktlich sind die Züge der Deutschen Bahn, und wo entstehen die Verspätungen?
-
-## Fragestellungen
-
-1. Wie hoch ist die Pünktlichkeitsquote (Verspätung unter 6 Minuten)?
-2. Welche Zugtypen (ICE, IC, RE, S ...) sind am unpünktlichsten?
-3. An welchen Bahnhöfen gibt es die meisten Verspätungen?
-4. Zu welcher Tageszeit und an welchem Wochentag sind die Verspätungen am größten?
-5. Wächst die Verspätung entlang der Fahrt eines Zuges an?
+Mein erstes Datenprojekt. Ich habe untersucht, wie pünktlich die Züge am Frankfurt (Main) Hbf sind.
 
 ## Daten
 
-- Quelle: [piebro/deutsche-bahn-data](https://huggingface.co/datasets/piebro/deutsche-bahn-data) (Timetables API der Deutschen Bahn)
-- Lizenz: CC BY 4.0, Deutsche Bahn
-- Zeitraum: Oktober 2025, ca. 100 größte Bahnhöfe
-- Die Rohdaten liegen nicht im Repository. Download:
+- Quelle: [piebro/deutsche-bahn-data](https://huggingface.co/datasets/piebro/deutsche-bahn-data) (Deutsche Bahn, Lizenz CC BY 4.0)
+- Zeitraum: Montag, 6. bis Sonntag, 12. Oktober 2025
+- 13.055 Halte am Frankfurt (Main) Hbf
 
-```powershell
-curl.exe -L -o data/data-2025-10.parquet "https://huggingface.co/datasets/piebro/deutsche-bahn-data/resolve/main/monthly_processed_data/data-2025-10.parquet"
-```
+Pünktlich heißt: weniger als 6 Minuten Verspätung (wie bei der Deutschen Bahn). Ausgefallene Züge (4,2 %) zähle ich nicht.
 
-## Struktur
+## Fragen und Ergebnisse
 
-```
-data/        Rohdaten (nicht im Repository)
-notebooks/   Jupyter-Notebooks mit der Analyse
-grafiken/    Exportierte Diagramme
-```
+### 1. Wie viele Züge sind pünktlich?
+
+75,9 % der Züge waren pünktlich. Am Wochenende waren die Züge pünktlicher (Sonntag: 87,9 %) als unter der Woche (Montag: 70,2 %).
+
+### 2. Welche Züge haben die meisten Verspätungen?
+
+Der Fernverkehr (ICE, IC ...). Nur 52,9 % der Fernzüge waren pünktlich. Die S-Bahn war am pünktlichsten (87,9 %).
+
+![Pünktlichkeit nach Zuggruppe](grafiken/frage2_zuggruppen.png)
+
+### 3. Um wie viel Uhr gibt es die meisten Verspätungen?
+
+Am Abend. Um 20 Uhr waren 36,7 % der Züge verspätet. Am frühen Morgen (4 bis 6 Uhr) waren weniger als 15 % verspätet.
+
+![Verspätungen nach Uhrzeit](grafiken/frage3_stunden.png)
+
+## Was ich gelernt habe
+
+- SQL mit DuckDB: `GROUP BY`, `CASE WHEN`, `VIEW`, `PIVOT`
+- Datenqualität prüfen (ausgefallene Züge, zu frühe Züge)
+- Diagramme mit matplotlib
+- Git
 
 ## Werkzeuge
 
-Python, pandas, matplotlib, seaborn, Jupyter
+Python, DuckDB (SQL), Jupyter Notebook, matplotlib, Git
+
+## Projekt starten
+
+1. Daten herunterladen und in den Ordner `data/` legen:
+
+   ```
+   curl -L -o data/data-2025-10.parquet "https://huggingface.co/datasets/piebro/deutsche-bahn-data/resolve/main/monthly_processed_data/data-2025-10.parquet"
+   ```
+
+2. Pakete installieren:
+
+   ```
+   pip install duckdb pandas matplotlib jupyter
+   ```
+
+3. `notebooks/analyse.ipynb` öffnen und alle Zellen ausführen.
